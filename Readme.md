@@ -117,8 +117,8 @@ El token JWT recibido debe incluirse en los headers de cada solicitud como:
  - **Clonar el repositorio**  
    Asegúrate de clonar el repositorio en el nuevo entorno:
 
-   **git clone [URL-del-repositorio](https://github.com/devmf19/ticketmanagement.git)**  
-   **cd \<ticketmanagement\>**
+   **git clone https://github.com/devmf19/ticketmanagement.git**  
+   **cd ticketmanagement**
 
 - **Instalar las dependencias**  
    Ejecuta el siguiente comando para descargar las dependencias definidas en el archivo **pom.xml**:
