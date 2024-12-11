@@ -115,7 +115,6 @@ El token JWT recibido debe incluirse en los headers de cada solicitud como:
 # 🚀 Guía de configuración y ejecución
 
  - **Clonar el repositorio**  
-   Asegúrate de clonar el repositorio en el nuevo entorno:
 
    **git clone https://github.com/devmf19/ticketmanagement.git**  
    **cd ticketmanagement**
@@ -145,12 +144,3 @@ Cuando todo haya ejecutado correctamente, accede desde el navegador a la siguien
 La seguridad de la API está garantizada mediante **Spring Security**.  
 - Todos los endpoints requieren autenticación y autorización según el rol del usuario.
 - Se utiliza un token **JWT** para autenticar a los usuarios en cada solicitud.
-
-
-
-
-
-
-# Project Title
-
-A brief description of what this project does and who it's for
