@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: root_123
+      MYSQL_DATABASE: gestion_tickets
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    ports:
+      - "3307:3306"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: springboot_app
+    environment:
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root_123
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/gestion_tickets?serverTimezone=America/Bogota&useJDBCCompliantTimezoneShift=true
+      JWT_SECRET: secret
+      JWT_EXPIRATION_IN_MS: 20000000
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
