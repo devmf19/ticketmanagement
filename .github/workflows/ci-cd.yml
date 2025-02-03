@@ -32,9 +32,15 @@ jobs:
       - name: Run unit tests with Maven
         run: mvn test
 
+      - name: Generate JaCoCo coverage report
+        run: mvn jacoco:report
+
       - name: Verify code coverage
         run: |
-          COVERAGE=$(mvn org.jacoco:jacoco-maven-plugin:check | grep -oP 'Coverage checks have not been met. Expected \K[0-9]+')
+          # Lee la cobertura de líneas del informe generado por JaCoCo
+          COVERAGE=$(awk -F, '/LINE/{print $4}' target/site/jacoco/jacoco.csv | tr -d '%')
+
+          # Compara la cobertura con el mínimo requerido (20% en este caso)
           if [ "$COVERAGE" -lt 20 ]; then
             echo "Code coverage is below 20%: $COVERAGE%"
             exit 1
