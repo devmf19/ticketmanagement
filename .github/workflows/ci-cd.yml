@@ -37,10 +37,7 @@ jobs:
 
       - name: Verify code coverage
         run: |
-          # Lee la cobertura de líneas del informe generado por JaCoCo
           COVERAGE=$(awk -F, '/LINE/{print $4}' target/site/jacoco/jacoco.csv | tr -d '%')
-
-          # Compara la cobertura con el mínimo requerido (20% en este caso)
           if [ "$COVERAGE" -lt 20 ]; then
             echo "Code coverage is below 20%: $COVERAGE%"
             exit 1
@@ -92,9 +89,9 @@ jobs:
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-ticket-management:${{ github.sha }}
 
       - name: Deploy to Cloud Run
-        uses: google-github-actions/deploy-cloudrun@v0
+        uses: google-github-actions/deploy-cloudrun@v2
         with:
-          service_name: my-ticket-management-00001-5dz
+          service: my-ticket-management-00001-5dz
           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-ticket-management:${{ github.sha }}
           region: us-central1
           project_id: ${{ secrets.GCP_PROJECT_ID }}
