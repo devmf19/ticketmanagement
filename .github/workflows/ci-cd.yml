@@ -73,14 +73,15 @@ jobs:
       - name: Build the application
         run: mvn clean package -DskipTests
 
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
       - name: Build Docker image
         run: |
           docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-ticket-management:${{ github.sha }} .
-
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v0
-        with:
-          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: Configure Docker for GCR
         run: |
@@ -93,7 +94,7 @@ jobs:
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v0
         with:
-          service_name: my-ticket-management
+          service_name: my-ticket-management-00001-5dz
           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-ticket-management:${{ github.sha }}
           region: us-central1
           project_id: ${{ secrets.GCP_PROJECT_ID }}
