@@ -23,7 +23,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Cache Maven packages
-        uses: actions/cache@v3  # Actualizado a v3
+        uses: actions/cache@v3
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
@@ -68,7 +68,7 @@ jobs:
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/ftd-td-os-order-services:${{ github.sha }}
 
       - name: Configure kubectl
-        uses: google-github-actions/setup-gke@v1  # Actualizado a v1
+        uses: google-github-actions/setup-gke@v2
         with:
           cluster_name: kubernetes-backend-dev
           location: us-central1-c
