@@ -67,11 +67,11 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/ftd-td-os-order-services:${{ github.sha }} .
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/ftd-td-os-order-services:${{ github.sha }}
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-management-to-cluster:${{ github.sha }} .
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-management-to-cluster:${{ github.sha }}
 
       - name: Configure kubectl
-        uses: google-github-actions/get-gke-credentials@v1 #change
+        uses: google-github-actions/get-gke-credentials@v1
         with:
           cluster_name: cluster-1
           location: us-central1-c
@@ -82,4 +82,4 @@ jobs:
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
         env:
-          IMAGE_TAG: gcr.io/${{ secrets.GCP_PROJECT_ID }}/ftd-td-os-order-services:${{ github.sha }}
+          IMAGE_TAG: gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-management-to-cluster:${{ github.sha }}
