@@ -54,16 +54,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
+
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: Set up Docker
-        run: gcloud auth configure-docker
-
-      - name: Build JAR file with Maven
-        run: mvn clean package -DskipTests
+        run: |-
+          gcloud auth configure-docker --quiet
 
       - name: Build and push Docker image
         run: |
@@ -79,7 +80,5 @@ jobs:
 
       - name: Deploy to GKE
         run: |
-          kubectl apply -f deployment.yaml
-          kubectl apply -f service.yaml
-        env:
-          IMAGE_TAG: gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-management-to-cluster:${{ github.sha }}
+          kubectl set image deployment/ticket-management-to-cluster ticket-management-to-cluster=gcr.io/${{ secrets.GCP_PROJECT_ID }}/ticket-management-to-cluster:${{ github.sha }}
+          kubectl rollout status deployment/ticket-management-to-cluster
