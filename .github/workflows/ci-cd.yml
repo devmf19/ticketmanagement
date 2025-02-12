@@ -68,7 +68,7 @@ jobs:
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/ftd-td-os-order-services:${{ github.sha }}
 
       - name: Configure kubectl
-        uses: google-github-actions/get-gke-credentials@v1
+        uses: google-github-actions/get-gke-credentials@v1 #change
         with:
           cluster_name: cluster-1
           location: us-central1-c
