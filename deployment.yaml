@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticket-management-to-cluster
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ticket-management-to-cluster
+  template:
+    metadata:
+      labels:
+        app: ticket-management-to-cluster
+    spec:
+      containers:
+        - name: ticket-management-to-cluster
+          image: gcr.io/sound-memory-447414-c1/ticket-management-to-cluster:dev
+          ports:
+            - containerPort: 8080
