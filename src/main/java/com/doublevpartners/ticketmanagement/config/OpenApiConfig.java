@@ -14,7 +14,7 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("API de gestion de tickets")
+                        .title("API de gestion de tickets con CI/CD de actions")
                         .version("1.0.0")
                         .description("API para la gestión de tickets sobre incidencias de un sistema"))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
